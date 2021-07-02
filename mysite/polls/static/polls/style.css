@@ -1,0 +1,10 @@
+body {
+    background: white url("images/background.jpg") no-repeat center;
+    padding: 3rem;
+}
+li a {
+    color: green;
+}
+h1 {
+    color: red;
+}
