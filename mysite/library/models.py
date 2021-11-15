@@ -12,7 +12,7 @@ class Book(models.Model):
 
 
     def display_author(self):  
-        return ', '.join([ author.first_name + ' ' + author.last_name for author in self.author.all()[:3] ])
+        return ' , '.join([ author.first_name + '  ' + author.last_name for author in self.author.all()[:3] ])
     display_author.short_description = 'Author'
           
 
@@ -48,4 +48,4 @@ class Author(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return '{0}, {1}'.format(self.last_name, self.first_name)
+        return '{0}  {1}'.format(self.last_name, self.first_name)

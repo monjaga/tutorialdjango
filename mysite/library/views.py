@@ -28,11 +28,11 @@ def book_detail_view(request,pk):
     except Book.DoesNotExist:
         raise Http404("Book does not exist")
 
-    #book_id=get_object_or_404(Book, pk=pk)
+    book_id=get_object_or_404(Book, pk=pk)
 
     return render(
         request,
-        'catalog/book_detail.html',
+        'library/book_detail.html',
         context={'book':book_id,}
     )
 class AuthorListView(generic.ListView):
@@ -44,5 +44,23 @@ class AuthorListView(generic.ListView):
 class AuthorDetailView(generic.DetailView):
     """Generic class-based detail view for an author."""
     model = Author
+
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        search_book = Book.objects.filter(title__contains=searched)
+        search_author = Author.objects.filter(last_name__contains=searched)
+
+        return render(request, 'library/search.html',{
+            'searched':searched,
+            'search_book':search_book,
+            'search_author':search_author,
+
+    })
+    else:
+        return render(request, 'library/search.html',{
+    })
+
 
    

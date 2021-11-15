@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if searched %}
+<h1>You search For {{ searched }}</h1>
+<br/>
+{% for book in search_book %}
+    <ol>
+    <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.display_author}})</li>
+    </ol>
+{% endfor %}
+
+{% for author in search_author %}
+    <ol>
+    <li><a href="{{ author.get_absolute_url }}">{{ author }} {{ title }}
+      </a>
+    </ol>
+{% endfor %}
+
+
+{% else %}
+    <h1> Hey! You forgot to search </h1>
+{% endif %}
+
+
+
+        
+        
+        
+{% endblock %}
