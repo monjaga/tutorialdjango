@@ -4,25 +4,20 @@
 <h1>Author: {{ author }} </h1>
 <p>Date of Birth: {{author.date_of_birth}}</p>
 <h4 style="margin-left:20px;margin-top:20px">Books:</h4>
-<div style="margin-left:20px;margin-top:20px; display: flex; align-items:center">
 
-<div>
-<ol>
- <li>
-{% for book in author.book_set.all %}
-  <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.id}})</dt>
-  </div>
-  
-  <dd>{{book.summary}}</dd>
-  <div >
-{% if book.image %}
-        <img src="{{ MEDIA_URL }}{{ book.image.url }}" width = '50' height = '100' style="margin-left:20px">
+<div class="row">
+    {% for book in author.book_set.all %}
+
+    <div>
+        <a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.id}})
+
+        {% if book.image %}
+
+        <img src="{{ MEDIA_URL }}{{ book.image.url }}" class="img-thumbnail" alt="Book Image"
+            style="width: 100px; height: 120px; margin-left: 40px ; ">
         {% endif %}
-  </div>
-  </div>
-  </li>
-  
-{% endfor %}
-</ol>
+
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

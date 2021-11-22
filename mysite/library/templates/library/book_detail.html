@@ -1,19 +1,19 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Title: {{ book.title }}</h1>
+<h1>Title: {{ book.title }}</h1>
 
-  <p><strong>Date add:</strong> {{ book.added_date }}</p> <!-- author detail link not yet defined -->
-  <p><strong>Descriotion:</strong> {{ book.description }}</p>
-  <p><strong>Author:</strong> {{ book.display_author }}</p>
-  {% load static %}
-        
-  {% if book.image %}
-        <img src="{{ MEDIA_URL }}{{ book.image.url }}">
-        {% endif %}
+<p><strong>Date add:</strong> {{ book.added_date }}</p> <!-- author detail link not yet defined -->
+<p><strong>Descriotion:</strong> {{ book.description }}</p>
+<p><strong>Author:</strong> {{ book.display_author }}</p>
+{% load static %}
 
-  <div style="margin-left:20px;margin-top:20px">
-    
+{% if book.image %}
+<img src="{{ MEDIA_URL }}{{ book.image.url }}">
+{% endif %}
 
-    
-{% endblock %}
+<div style="margin-left:20px;margin-top:20px">
+
+
+
+  {% endblock %}

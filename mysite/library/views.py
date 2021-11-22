@@ -1,6 +1,8 @@
+from django.http.response import Http404
 from django.shortcuts import render
 from django.views import generic
 from .models import Book, Author
+from django.http import HttpResponse
 
 def index(request):
     # Генерация "количеств" некоторых главных объектов
@@ -28,7 +30,8 @@ def book_detail_view(request,pk):
     except Book.DoesNotExist:
         raise Http404("Book does not exist")
 
-    book_id=get_object_or_404(Book, pk=pk)
+
+    book_id=get_object_or_404(Book, pk=1)
 
     return render(
         request,
@@ -56,7 +59,6 @@ def search(request):
             'searched':searched,
             'search_book':search_book,
             'search_author':search_author,
-
     })
     else:
         return render(request, 'library/search.html',{

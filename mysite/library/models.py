@@ -1,27 +1,41 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.html import mark_safe
 
 
-class Book(models.Model):  
-    
+class Book(models.Model):
+
     title = models.CharField(max_length=200)
     author = models.ManyToManyField("Author", verbose_name=("Author"))
     description = models.TextField(("Description"))
-    added_date = models.DateTimeField(("Date Add"), auto_now=False, auto_now_add=False)
-    image = models.ImageField(("Image"), upload_to='library\static\images', max_length=None)
+    added_date = models.DateTimeField(auto_now_add=True)
+    image  = models.ImageField(
+        ("Image"), upload_to='library\static\images', max_length=None)
 
-
-    def display_author(self):  
-        return ' , '.join([ author.first_name + '  ' + author.last_name for author in self.author.all()[:3] ])
+    def display_author(self):
+        return ' , '.join([author.first_name + '  ' + author.last_name for author in self.author.all()[:3]])
     display_author.short_description = 'Author'
-          
 
-    def __str__(self): 
+    def __str__(self):
         return self.title
 
-
-    def get_absolute_url(self):  
+    def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
+
+
+    def save(self, *args, **kwargs):
+        try:
+            this = Book.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete(save=False)
+        except: pass
+        super(Book, self).save(*args, **kwargs)
+
+
+    def image_tag(self):
+            return mark_safe('<img src="\%s" width="100" height="120" >' % (self.image))
+
+    image_tag.short_description = 'Image pictures'
 
 class Meta:
         ordering = ['title', 'display_author']
